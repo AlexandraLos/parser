@@ -2,7 +2,7 @@ from pars import Parser
 
 
 def main():
-    vacancy_title = str(input('Введите название вакнасии: '))
+    vacancy_title = str(input('Введите название вакансии: '))
     words_in = str(input('Введите ключевые слова через пробел: ')).split(' ')
     jobs = Parser(vacancy_title)
     info = jobs.vacancies_pars(words_in)
