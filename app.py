@@ -6,8 +6,6 @@ def main():
     words_in = str(input('Введите ключевые слова через пробел: ')).split(' ')
     jobs = Parser(vacancy_title)
     info = jobs.vacancies_pars(words_in)
-    # print(info[0])
-    # print(info[1])
 
     for i in info[0]:
         for j in i:
