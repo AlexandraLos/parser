@@ -7,8 +7,8 @@ class Parser:
     HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
                              'Chrome/87.0.4280.141 Safari/537.36 OPR/73.0.3856.415', 'accept': '*/*'}
 
-    def __init__(self, url):
-        self.url = url
+    def __init__(self, name_vac):
+        self.name_vac = name_vac
 
     def get_info_vacancies(self, link):
         print(link)
@@ -43,7 +43,7 @@ class Parser:
         words = []
         for page in range(0, 5):
             print(f'Парсинг страницы №{page + 1}')
-            g = self.URL.format(self.url)
+            g = self.URL.format(self.name_vac)
             response = get(f'{g}&page={page}', headers=self.HEADERS)
             soup = BeautifulSoup(response.text, 'html.parser')
             results = soup.find_all('div', {'class': 'vacancy-serp-item'})
