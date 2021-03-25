@@ -37,17 +37,13 @@ def test_words_in():
 
 
 def test_soup(check_connect):
-    response = get(check_connect[0], headers=check_connect[1])
-    soup = BeautifulSoup(response.text, 'html.parser')
-    results = soup.find_all('div', {'class': 'vacancy-serp-item'})
-    assert (results != [])
+    jobs = Parser('python')
+    info = jobs.vacancies_pars('')
+    assert(info != False)
 
 
 def test_soup_desc(check_connect):
+    pars = Parser('python')
     link = "https://rabota.by/vacancy/43048095?query=python"
-    response = get(link, headers=check_connect[1])
-    soup = BeautifulSoup(response.text, 'html.parser').find_all('div', {'class': 'vacancy-description'})
-    description_vac = ""
-    for s in soup:
-        description_vac += s.get_text('\n').lower()
-    assert (description_vac != "")
+    results = pars.get_info_vacancies(link)
+    assert(results != [])

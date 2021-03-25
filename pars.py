@@ -45,6 +45,8 @@ class Parser:
             print(f'Парсинг страницы №{page + 1}')
             g = self.URL.format(self.name_vac)
             response = get(f'{g}&page={page}', headers=self.HEADERS)
+            if response.status_code != 200:
+                return False
             soup = BeautifulSoup(response.text, 'html.parser')
             results = soup.find_all('div', {'class': 'vacancy-serp-item'})
             if results == []:
