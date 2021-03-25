@@ -4,11 +4,10 @@ from bs4 import BeautifulSoup
 
 class Parser:
     URL = 'https://rabota.by/search/vacancy?clusters=true&text={}&area=1002'
-    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                             'Chrome/87.0.4280.141 Safari/537.36 OPR/73.0.3856.415', 'accept': '*/*'}
+    HEADERS = {'User-Agent': 'Mozilla/5.0'}
 
-    def __init__(self, url):
-        self.url = url
+    def __init__(self, name_vac):
+        self.name_vac = name_vac
 
     def get_info_vacancies(self, link):
         print(link)
@@ -32,7 +31,7 @@ class Parser:
                 k += 1
             for h in w:
                 if h == word:
-                    w[h] += 1
+                    w[word] += 1
         return k, w
 
     def vacancies_pars(self, words_in):
@@ -41,12 +40,15 @@ class Parser:
         for i in words_in:
             w[i] = 0
         words = []
+        zero_vac = 0
         for page in range(0, 5):
             print(f'Парсинг страницы №{page + 1}')
-            g = self.URL.format(self.url)
+            g = self.URL.format(self.name_vac)
             response = get(f'{g}&page={page}', headers=self.HEADERS)
             soup = BeautifulSoup(response.text, 'html.parser')
             results = soup.find_all('div', {'class': 'vacancy-serp-item'})
+            if results == []:
+                zero_vac += 1
             count = 0
             all_words_page = {}
             for i in words_in:
@@ -65,4 +67,7 @@ class Parser:
                     print(e)
             words.append({str(page): all_words_page})
             jobs.append({str(page): count})
-        return jobs, words
+        if zero_vac == 5:
+            return 0
+        else:
+            return jobs, words
