@@ -56,6 +56,6 @@ def test_soup_desc(check_connect):
     response = get(link, headers=check_connect[1])
     soup = BeautifulSoup(response.text, 'html.parser').find_all('div', {'class': 'vacancy-description'})
     description_vac = ""
-    for i in soup:
-        description_vac += i.get_text('\n').lower()
+    for s in soup:
+        description_vac += s.get_text('\n').lower()
     assert (description_vac != "")
