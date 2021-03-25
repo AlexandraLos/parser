@@ -1,14 +1,6 @@
-import pytest
 from requests import get
 from pars import Parser
 from bs4 import BeautifulSoup
-
-
-@pytest.fixture()
-def check_connect():
-    URL = 'https://rabota.by/search/vacancy?clusters=true&text=python&area=1002'
-    HEADERS = {'User-Agent': 'Mozilla/5.0'}
-    return URL, HEADERS
 
 
 def test_connection(check_connect):
